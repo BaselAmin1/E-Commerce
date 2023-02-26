@@ -1,5 +1,5 @@
-import 'package:e_commerce/core/bloc_observer.dart';
-import 'package:e_commerce/core/cache_helper.dart';
+import 'package:e_commerce/core/service/bloc_observer.dart';
+import 'package:e_commerce/core/route/cache_helper.dart';
 import 'package:e_commerce/core/route/app_route.dart';
 import 'package:e_commerce/core/route/route_path.dart';
 import 'package:e_commerce/firebase_options.dart';
@@ -15,11 +15,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-   FirebaseAuth.instance.authStateChanges().listen((user) {
+  FirebaseAuth.instance.authStateChanges().listen((user) {
     if (user == null) {
       initialRoute = loginScreen;
     } else {
-      initialRoute = registerScreen;
+      initialRoute = appLayoutScreen;
     }
   });
   await CacheHelper.init();
@@ -39,18 +39,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(412, 892),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'E Commerce',
-          theme: ThemeData(),
-          onGenerateRoute: appRouter.generateRoute,
-          initialRoute: initialRoute,
-        );
-      },
-    );
+        designSize: const Size(412, 892),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'E Commerce',
+            theme: ThemeData(),
+            onGenerateRoute: appRouter.generateRoute,
+            initialRoute: initialRoute,
+          );
+        });
   }
 }

@@ -16,7 +16,11 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SignInSuccess) {
+          Navigator.pushReplacementNamed(context, appLayoutScreen);
+        }
+      },
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
         return Scaffold(
@@ -122,9 +126,7 @@ class LoginScreen extends StatelessWidget {
                   CustomButtonSocial(
                     text: 'Sign In with Facebook',
                     onPress: () {
-               
-                        cubit.signInWithFacebook(context);
-                      
+                      cubit.signInWithFacebook(context);
                     },
                     imageName: 'assets/images/facebook.png',
                   ),
@@ -134,9 +136,7 @@ class LoginScreen extends StatelessWidget {
                   CustomButtonSocial(
                     text: 'Sign In with Google',
                     onPress: () {
-                     
-                        cubit.signInWithGoogle(context);
-                      
+                      cubit.signInWithGoogle(context);
                     },
                     imageName: 'assets/images/google.png',
                   ),

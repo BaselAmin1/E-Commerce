@@ -1,8 +1,6 @@
 import 'package:e_commerce/core/route/route_path.dart';
-import 'package:e_commerce/core/utils/strings.dart';
 import 'package:e_commerce/features/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:e_commerce/features/auth/presentation/widgets/custom_button.dart';
-import 'package:e_commerce/features/auth/presentation/widgets/custom_button_social.dart';
 import 'package:e_commerce/features/auth/presentation/widgets/custom_text.dart';
 import 'package:e_commerce/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +15,9 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        // TODO: implement listener
+         if (state is SignInSuccess) {
+          Navigator.pushReplacementNamed(context, loginScreen);
+        }
       },
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
