@@ -1,7 +1,8 @@
 import 'package:e_commerce/core/service/bloc_observer.dart';
-import 'package:e_commerce/core/route/cache_helper.dart';
+import 'package:e_commerce/core/service/cache_helper.dart';
 import 'package:e_commerce/core/route/app_route.dart';
 import 'package:e_commerce/core/route/route_path.dart';
+import 'package:e_commerce/core/utils/strings.dart';
 import 'package:e_commerce/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,7 +47,11 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'E Commerce',
-            theme: ThemeData(),
+            theme: ThemeData(
+                primaryColor: primaryColor,
+                focusColor: primaryColor,
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                    selectedItemColor: primaryColor)),
             onGenerateRoute: appRouter.generateRoute,
             initialRoute: initialRoute,
           );

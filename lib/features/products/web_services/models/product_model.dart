@@ -2,22 +2,23 @@ import 'package:e_commerce/core/helper/extenstion.dart';
 import 'package:flutter/cupertino.dart';
 
 class ProductModel {
-  String? name, image, description, sized, price;
+  late String productId, name, image, description, sized, price;
   Color? color;
 
   ProductModel(
-      {this.name,
+      this.productId,
+      this.name,
       this.image,
       this.description,
       this.color,
       this.sized,
-      this.price});
+      this.price);
 
   ProductModel.fromJson(Map<dynamic, dynamic> map) {
     if (map == null) {
       return;
     }
-
+    productId = map['productId'];
     name = map['name'];
     image = map['image'];
     description = map['description'];
@@ -28,6 +29,7 @@ class ProductModel {
 
   toJson() {
     return {
+      ' productId': productId,
       'name': name,
       'image': image,
       'description': description,

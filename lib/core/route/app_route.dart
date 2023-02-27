@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/core/route/route_path.dart';
 import 'package:e_commerce/features/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:e_commerce/features/auth/presentation/screens/login_screen.dart';
+import 'package:e_commerce/features/cart/business_logic/cubit/cart_cubit.dart';
+import 'package:e_commerce/features/cart/presentation/screens/cart_screen.dart';
 import 'package:e_commerce/features/layout/presentation/screens/app_layout.dart';
 import 'package:e_commerce/features/products/presentation/screens/home_screen.dart';
 import 'package:e_commerce/features/products/presentation/screens/product_details_screen.dart';
@@ -30,7 +32,7 @@ class AppRouter {
             child: RegisterScreen(),
           ),
         );
-        case appLayoutScreen:
+      case appLayoutScreen:
         return MaterialPageRoute(
           builder: (_) => const AppLayout(),
         );
@@ -47,8 +49,15 @@ class AppRouter {
         final index = settings.arguments;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => ProductsCubit()..getBestSellingProducts(),
+            create: (context) => CartCubit(),
             child: ProductDetailsScreen(index: index),
+          ),
+        );
+      case cartScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => CartCubit()..getAllProduct(),
+            child: CartScreen(),
           ),
         );
     }
