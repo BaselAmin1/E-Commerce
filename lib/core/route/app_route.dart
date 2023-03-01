@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/core/route/route_path.dart';
 import 'package:e_commerce/features/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:e_commerce/features/auth/presentation/screens/login_screen.dart';
@@ -60,6 +59,7 @@ class AppRouter {
             child: CartScreen(),
           ),
         );
+       
     }
     return null;
   }

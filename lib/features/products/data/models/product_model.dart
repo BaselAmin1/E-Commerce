@@ -14,22 +14,23 @@ class ProductModel {
       this.sized,
       this.price);
 
-  ProductModel.fromJson(Map<dynamic, dynamic> map) {
-    if (map == null) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
       return;
     }
-    productId = map['productId'];
-    name = map['name'];
-    image = map['image'];
-    description = map['description'];
-    color = HexColor.fromHex(map['color']);
-    sized = map['sized'];
-    price = map['price'];
+    productId = json['productId'];
+    name = json['name'];
+    image = json['image'];
+    description = json['description'];
+    color = HexColor.fromHex(json['color']);
+    sized = json['sized'];
+    price = json['price'];
+     
   }
 
   toJson() {
     return {
-      ' productId': productId,
+    ' productId': productId,
       'name': name,
       'image': image,
       'description': description,
@@ -37,5 +38,8 @@ class ProductModel {
       'sized': sized,
       'price': price,
     };
+    
   }
+
 }
+

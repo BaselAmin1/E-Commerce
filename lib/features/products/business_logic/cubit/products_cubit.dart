@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/core/service/firesotre_products.dart';
 import 'package:e_commerce/core/utils/strings.dart';
-import 'package:e_commerce/features/products/web_services/models/category_model.dart';
-import 'package:e_commerce/features/products/web_services/models/product_model.dart';
+import 'package:e_commerce/features/products/data/models/category_model.dart';
+import 'package:e_commerce/features/products/data/models/product_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';

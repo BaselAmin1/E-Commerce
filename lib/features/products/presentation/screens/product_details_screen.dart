@@ -3,7 +3,6 @@ import 'package:e_commerce/features/auth/presentation/widgets/custom_button.dart
 import 'package:e_commerce/features/auth/presentation/widgets/custom_text.dart';
 import 'package:e_commerce/features/cart/business_logic/cubit/cart_cubit.dart';
 import 'package:e_commerce/features/cart/data/model/cart_model.dart';
-import 'package:e_commerce/features/products/business_logic/cubit/products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

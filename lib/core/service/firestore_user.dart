@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/features/auth/web_services/models/user_model.dart';
+import 'package:e_commerce/features/auth/data/models/user_model.dart';
 
 
 class FireStoreUser {

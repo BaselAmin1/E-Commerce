@@ -1,6 +1,6 @@
 import 'package:e_commerce/core/service/firestore_user.dart';
 import 'package:e_commerce/features/auth/presentation/widgets/snack_bar.dart';
-import 'package:e_commerce/features/auth/web_services/models/user_model.dart';
+import 'package:e_commerce/features/auth/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +78,6 @@ class AuthCubit extends Cubit<AuthState> {
           .then((user) {
         saveUser(user: user, name: name);
       });
-
       emit(RegisterSuccess());
     } catch (e) {
       print(e.toString());
