@@ -9,8 +9,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final index;
-  ProductDetailsScreen({super.key, required this.index});
+  bool list = true;
+  final categoryIndex;
+  final previosPage;
+  ProductDetailsScreen(
+      {super.key,
+      required this.index,
+      required this.categoryIndex,
+      required this.previosPage});
+
   Widget buildSliverAppBar(name, image, details) {
+    if (previosPage == 'categoryScreen') {
+      list = false;
+    } else {
+      list = true;
+    }
     return SliverAppBar(
       expandedHeight: 600,
       pinned: true,
@@ -43,11 +56,17 @@ class ProductDetailsScreen extends StatelessWidget {
           ? Center(child: CircularProgressIndicator())
           : CustomScrollView(
               slivers: [
-                buildSliverAppBar(
-                  kProducts[index].name,
-                  kProducts[index].image,
-                  kProducts[index].description,
-                ),
+                list
+                    ? buildSliverAppBar(
+                        kProducts[index].name,
+                        kProducts[index].image,
+                        kProducts[index].description,
+                      )
+                    : buildSliverAppBar(
+                        kCategories[this.categoryIndex].products[index].name,
+                        kCategories[this.categoryIndex].products[index].image,
+                        kCategories[this.categoryIndex].products[index].description,
+                      ),
                 SliverList(
                   delegate: SliverChildListDelegate(
                     [
@@ -61,7 +80,11 @@ class ProductDetailsScreen extends StatelessWidget {
                             Column(
                               children: [
                                 CustomText(
-                                  text: kProducts[index].name!,
+                                  text: list
+                                      ? kProducts[index].name!
+                                      : kCategories[this.categoryIndex]
+                                          .products[index]
+                                          .name!,
                                   fontSize: 26.sp,
                                 ),
                                 SizedBox(
@@ -89,7 +112,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                             text: 'Size',
                                           ),
                                           CustomText(
-                                            text: kProducts[index].sized!,
+                                            text: list
+                                                ? kProducts[index].size!
+                                                : kCategories[
+                                                        this.categoryIndex]
+                                                    .products[index]
+                                                    .size!,
                                           ),
                                         ],
                                       ),
@@ -120,7 +148,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   color: Colors.grey),
                                               borderRadius:
                                                   BorderRadius.circular(20.r),
-                                              color: kProducts[index].color!,
+                                              color: list
+                                                  ? kProducts[index].color!
+                                                  : kCategories[
+                                                          this.categoryIndex]
+                                                      .products[index]
+                                                      .color!,
                                             ),
                                           )
                                         ],
@@ -139,7 +172,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                   height: 20.h,
                                 ),
                                 CustomText(
-                                  text: kProducts[index].description!,
+                                  text: list
+                                      ? kProducts[index].description!
+                                      : kCategories[this.categoryIndex]
+                                          .products[index]
+                                          .description!,
                                   fontSize: 18.sp,
                                   height: 2.5.h,
                                   maxLine: 200,
@@ -157,11 +194,24 @@ class ProductDetailsScreen extends StatelessWidget {
                                             fontSize: 22.sp,
                                             color: Colors.grey,
                                           ),
-                                          CustomText(
-                                            text:
-                                                ' \$' + kProducts[index].price!,
-                                            color: primaryColor,
-                                            fontSize: 18.sp,
+                                          Row(
+                                            children: [
+                                              CustomText(
+                                                text: ' \$',
+                                                color: primaryColor,
+                                                fontSize: 18.sp,
+                                              ),
+                                              CustomText(
+                                                text: list
+                                                    ? kProducts[index].price!
+                                                    : kCategories[
+                                                            this.categoryIndex]
+                                                        .products[index]
+                                                        .price!,
+                                                color: primaryColor,
+                                                fontSize: 18.sp,
+                                              ),
+                                            ],
                                           )
                                         ],
                                       ),
@@ -173,18 +223,14 @@ class ProductDetailsScreen extends StatelessWidget {
                                           height: 100.h,
                                           child: CustomButton(
                                             onPress: () {
-                                             // cartCubit.getAllProduct();
+                                              // cartCubit.getAllProduct();
                                               cartCubit.addProduct(
                                                 CartModel(
-                                                   kProducts[index].productId!,
-                                                   kProducts[index].name!,
-                                                 
-                                                      kProducts[index].image!,
-                                                       1,
-                                                 
-                                                      kProducts[index].price!,
-                                                  
-                                                
+                                                  kProducts[index].productId!,
+                                                  kProducts[index].name!,
+                                                  kProducts[index].image!,
+                                                  1,
+                                                  kProducts[index].price!,
                                                 ),
                                               );
                                             },

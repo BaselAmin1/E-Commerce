@@ -1,13 +1,15 @@
 import 'package:e_commerce/core/route/route_path.dart';
 import 'package:e_commerce/core/utils/strings.dart';
-
 import 'package:e_commerce/features/auth/presentation/widgets/custom_text.dart';
 import 'package:e_commerce/features/products/business_logic/cubit/products_cubit.dart';
+import 'package:e_commerce/features/products/presentation/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsCubit, ProductsState>(
@@ -15,9 +17,12 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = ProductsCubit.get(context);
         kProducts = cubit.productModel;
+
+        kCategories = cubit.categoryModel;
+
         return Scaffold(
           body: kProducts.isEmpty
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : Container(
                   padding: EdgeInsets.only(top: 100.h, left: 20.w, right: 20.w),
                   child: Column(
@@ -26,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                      CustomText(
+                      const CustomText( 
                         text: "Categories",
                       ),
                       SizedBox(
@@ -68,7 +73,7 @@ class HomeScreen extends StatelessWidget {
         color: Colors.grey.shade200,
       ),
       child: TextFormField(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: InputBorder.none,
           prefixIcon: Icon(
             Icons.search,
@@ -81,33 +86,37 @@ class HomeScreen extends StatelessWidget {
 
   Widget _listViewCategory(context) {
     var cubit = ProductsCubit.get(context);
-    return Container(
+    return SizedBox(
       height: 100.h,
       child: ListView.separated(
         itemCount: cubit.categoryModel.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.r),
-                  color: Colors.grey.shade100,
+          return GestureDetector(
+            onTap: () => Navigator.pushNamed(context, categoriesScreen,
+                arguments: index),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.r),
+                    color: Colors.grey.shade100,
+                  ),
+                  height: 60.h,
+                  width: 60.w,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0.h),
+                    child: Image.network(cubit.categoryModel[index].categoryImage!),
+                  ),
                 ),
-                height: 60.h,
-                width: 60.w,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0.h),
-                  child: Image.network(cubit.categoryModel[index].image!),
+                SizedBox(
+                  height: 20.h,
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              CustomText(
-                text: cubit.categoryModel[index].name!,
-              ),
-            ],
+                CustomText(
+                  text: cubit.categoryModel[index].categoryName!,
+                ),
+              ],
+            ),
           );
         },
         separatorBuilder: (context, index) => SizedBox(
@@ -118,64 +127,21 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _listViewProducts(context) {
-    var cubit = ProductsCubit.get(context);
-    return Container(
+    return SizedBox(
       height: 400.h,
       width: 500.w,
       child: ListView.separated(
         itemCount: kProducts.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, productDetailsScreen,
-                  arguments: index);
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width * .4,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.r),
-                      color: Colors.grey.shade100,
-                    ),
-                    child: Container(
-                        height: 220.h,
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Image.network(
-                          kProducts[index].image!,
-                          fit: BoxFit.fill,
-                        )),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  CustomText(
-                    text: kProducts[index].name!,
-                    alignment: Alignment.bottomLeft,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Expanded(
-                    child: CustomText(
-                      text: kProducts[index].description!,
-                      color: Colors.grey,
-                      alignment: Alignment.bottomLeft,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  CustomText(
-                    text:kProducts[index].price.toString() + " \$",
-                    color: primaryColor,
-                    alignment: Alignment.bottomLeft,
-                  ),
-                ],
-              ),
-            ),
+          return ProductWidget(
+            categoryIndex: 0,
+            previosPage: 'homeScreen',
+            description: kProducts[index].description!,
+            image: kProducts[index].image!,
+            index: index,
+            name: kProducts[index].name!,
+            price: kProducts[index].price!,
           );
         },
         separatorBuilder: (context, index) => SizedBox(

@@ -4,6 +4,7 @@ import 'package:e_commerce/features/auth/presentation/screens/login_screen.dart'
 import 'package:e_commerce/features/cart/business_logic/cubit/cart_cubit.dart';
 import 'package:e_commerce/features/cart/presentation/screens/cart_screen.dart';
 import 'package:e_commerce/features/layout/presentation/screens/app_layout.dart';
+import 'package:e_commerce/features/products/presentation/screens/categories_screen.dart';
 import 'package:e_commerce/features/products/presentation/screens/home_screen.dart';
 import 'package:e_commerce/features/products/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +45,22 @@ class AppRouter {
             child: HomeScreen(),
           ),
         );
+        case categoriesScreen:
+         final index = settings.arguments;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => ProductsCubit()..getCategory(),
+            child: CategoriesScreen(index: index),
+          ),
+        );
       case productDetailsScreen:
         final index = settings.arguments;
+        final categoryIndex = settings.arguments;
+        final previosPage = settings.arguments;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => CartCubit(),
-            child: ProductDetailsScreen(index: index),
+            child: ProductDetailsScreen(index: index,categoryIndex:categoryIndex,previosPage:previosPage),
           ),
         );
       case cartScreen:
@@ -59,6 +70,7 @@ class AppRouter {
             child: CartScreen(),
           ),
         );
+      
        
     }
     return null;
