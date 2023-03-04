@@ -7,6 +7,7 @@ import 'package:e_commerce/features/layout/presentation/screens/app_layout.dart'
 import 'package:e_commerce/features/products/presentation/screens/categories_screen.dart';
 import 'package:e_commerce/features/products/presentation/screens/home_screen.dart';
 import 'package:e_commerce/features/products/presentation/screens/product_details_screen.dart';
+import 'package:e_commerce/features/products/presentation/screens/product_details_screen_bestselling.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,21 +47,29 @@ class AppRouter {
           ),
         );
         case categoriesScreen:
-         final index = settings.arguments;
+      
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => ProductsCubit()..getCategory(),
-            child: CategoriesScreen(index: index),
+            child: CategoriesScreen(),
           ),
         );
+        
       case productDetailsScreen:
         final index = settings.arguments;
-        final categoryIndex = settings.arguments;
-        final previosPage = settings.arguments;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => CartCubit(),
-            child: ProductDetailsScreen(index: index,categoryIndex:categoryIndex,previosPage:previosPage),
+            child: ProductDetailsScreen(index: index,),
+          ),
+        );
+
+        case productDetailsScreenBestSelling:
+            final index = settings.arguments;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => CartCubit(),
+            child: ProductDetailsScreenBestSelling(index: index,),
           ),
         );
       case cartScreen:

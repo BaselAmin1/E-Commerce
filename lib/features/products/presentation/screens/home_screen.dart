@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                      const CustomText( 
+                      const CustomText(
                         text: "Categories",
                       ),
                       SizedBox(
@@ -93,8 +93,10 @@ class HomeScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, categoriesScreen,
-                arguments: index),
+            onTap: () {
+              kCategoryIndex = index;
+              Navigator.pushNamed(context, categoriesScreen,);
+            },
             child: Column(
               children: [
                 Container(
@@ -106,7 +108,8 @@ class HomeScreen extends StatelessWidget {
                   width: 60.w,
                   child: Padding(
                     padding: EdgeInsets.all(8.0.h),
-                    child: Image.network(cubit.categoryModel[index].categoryImage!),
+                    child: Image.network(
+                        cubit.categoryModel[index].categoryImage!),
                   ),
                 ),
                 SizedBox(
@@ -135,13 +138,13 @@ class HomeScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return ProductWidget(
-            categoryIndex: 0,
-            previosPage: 'homeScreen',
+            onTapRoute: productDetailsScreenBestSelling,
             description: kProducts[index].description!,
             image: kProducts[index].image!,
             index: index,
             name: kProducts[index].name!,
             price: kProducts[index].price!,
+           
           );
         },
         separatorBuilder: (context, index) => SizedBox(

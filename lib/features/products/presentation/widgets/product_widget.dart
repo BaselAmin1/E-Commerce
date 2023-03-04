@@ -11,8 +11,7 @@ class ProductWidget extends StatelessWidget {
   final description;
   final image;
   final price;
-  final categoryIndex;
-  final previosPage;
+  final onTapRoute;
 
   const ProductWidget({
     super.key,
@@ -21,15 +20,17 @@ class ProductWidget extends StatelessWidget {
     required this.description,
     required this.image,
     required this.price,
- required   this.categoryIndex,
-  required  this.previosPage,
+    required this.onTapRoute,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, productDetailsScreen, arguments: {index,categoryIndex,previosPage});
+        kIndex = index;
+        Navigator.pushNamed(context, onTapRoute, arguments: {
+          index,
+        });
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width * .4,

@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/route/route_path.dart';
 import 'package:e_commerce/core/utils/strings.dart';
 import 'package:e_commerce/features/products/business_logic/cubit/products_cubit.dart';
 import 'package:e_commerce/features/products/presentation/widgets/product_widget.dart';
@@ -6,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  final index;
-  const CategoriesScreen({super.key, required this.index});
+
+  const CategoriesScreen({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CategoriesScreen extends StatelessWidget {
           appBar: AppBar(
             title: Center(
               child: Text(
-                kCategories[this.index].categoryName,
+                kCategories[kCategoryIndex].categoryName,
                 // textAlign: TextAlign.justify,
               ),
             ),
@@ -50,21 +51,21 @@ class CategoriesScreen extends StatelessWidget {
                       mainAxisSpacing: 1,
                     ),
                     shrinkWrap: true,
-                    itemCount: (kCategories[index].products).length,
+                    itemCount: (kCategories[kCategoryIndex].products).length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: ProductWidget(
-                          categoryIndex: this.index,
-            previosPage: 'categoryScreen',
+                          onTapRoute: productDetailsScreen,
+                          
                           index: index,
-                          description: kCategories[this.index]
+                          description: kCategories[kCategoryIndex]
                               .products[index]
                               .description,
-                          image: kCategories[this.index].products[index].image!,
-                          name: kCategories[this.index].products[index].name!,
-                          price: kCategories[this.index].products[index].price,
+                          image: kCategories[kCategoryIndex].products[index].image!,
+                          name: kCategories[kCategoryIndex].products[index].name!,
+                          price: kCategories[kCategoryIndex].products[index].price, 
                         ),
                       );
                     },

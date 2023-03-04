@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreenBestSelling extends StatelessWidget {
   final index;
-  bool list = true;
 
-  ProductDetailsScreen({
+
+
+  ProductDetailsScreenBestSelling({
     super.key,
     required this.index,
+
   });
 
   Widget buildSliverAppBar(name, image, details) {
@@ -42,7 +44,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = CartCubit.get(context);
-    print(index);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: kProducts.isEmpty
@@ -50,9 +52,9 @@ class ProductDetailsScreen extends StatelessWidget {
           : CustomScrollView(
               slivers: [
                 buildSliverAppBar(
-                  kCategories[kCategoryIndex].products[kIndex].name,
-                  kCategories[kCategoryIndex].products[kIndex].image,
-                  kCategories[kCategoryIndex].products[kIndex].description,
+                kProducts[kIndex].name!,
+                    kProducts[kIndex].image,
+                    kProducts[kIndex].description,
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
@@ -67,9 +69,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             Column(
                               children: [
                                 CustomText(
-                                  text: kCategories[kCategoryIndex]
-                                      .products[kIndex]
-                                      .name!,
+                                  text:     kProducts[kIndex].name!,
                                   fontSize: 26.sp,
                                 ),
                                 SizedBox(
@@ -97,9 +97,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                             text: 'Size',
                                           ),
                                           CustomText(
-                                            text: kCategories[kCategoryIndex]
-                                                .products[kIndex]
-                                                .size!,
+                                            text:kProducts[kIndex].size!,
                                           ),
                                         ],
                                       ),
@@ -130,9 +128,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   color: Colors.grey),
                                               borderRadius:
                                                   BorderRadius.circular(20.r),
-                                              color: kCategories[kCategoryIndex]
-                                                  .products[kIndex]
-                                                  .color!,
+                                              color:    kProducts[kIndex].color!,
                                             ),
                                           )
                                         ],
@@ -151,9 +147,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   height: 20.h,
                                 ),
                                 CustomText(
-                                  text: kCategories[kCategoryIndex]
-                                      .products[kIndex]
-                                      .description!,
+                                  text:    kProducts[kIndex].description!,
                                   fontSize: 18.sp,
                                   height: 2.5.h,
                                   maxLine: 200,
@@ -179,10 +173,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                 fontSize: 18.sp,
                                               ),
                                               CustomText(
-                                                text:
-                                                    kCategories[kCategoryIndex]
-                                                        .products[kIndex]
-                                                        .price!,
+                                                text:  kProducts[kIndex].price!,
                                                 color: primaryColor,
                                                 fontSize: 18.sp,
                                               ),
@@ -201,19 +192,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                               // cartCubit.getAllProduct();
                                               cartCubit.addProduct(
                                                 CartModel(
-                                                  kCategories[kCategoryIndex]
-                                                      .products[kIndex]
-                                                      .productId!,
-                                                  kCategories[kCategoryIndex]
-                                                      .products[kIndex]
-                                                      .name!,
-                                                  kCategories[kCategoryIndex]
-                                                      .products[kIndex]
-                                                      .image!,
+                                                    kProducts[kIndex].productId!,
+                                                 kProducts[kIndex].name!,
+                                                kProducts[kIndex].image!,
                                                   1,
-                                                  kCategories[kCategoryIndex]
-                                                      .products[kIndex]
-                                                      .price!,
+                                                   kProducts[kIndex].price!,
                                                 ),
                                               );
                                             },
