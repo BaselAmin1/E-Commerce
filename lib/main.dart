@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     selectedItemColor: primaryColor)),
             onGenerateRoute: appRouter.generateRoute,
-            initialRoute: initialRoute,
+            initialRoute: checkOutScreen,
           );
         });
   }

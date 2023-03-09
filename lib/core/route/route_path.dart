@@ -6,3 +6,4 @@ const productDetailsScreen = '/product_details_screen';
 const cartScreen = '/cart_screen';
 const categoriesScreen = '/categories_screen';
 const productDetailsScreenBestSelling = '/product_details_screen_bestSelling';
+const checkOutScreen = '/checkout_screen';
